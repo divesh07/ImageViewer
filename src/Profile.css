@@ -1,0 +1,24 @@
+.profileImage{
+    width:20%;
+}
+
+.profileInfo{
+    width:80%;
+    float: right;
+}
+
+.profileName{
+    padding: 10px;
+}
+
+.profileDetail{
+    padding: 10px;
+}
+
+.editProfile{
+    padding: 10px;
+}
+
+.profileDetailPosts{
+    width: 20%;
+}

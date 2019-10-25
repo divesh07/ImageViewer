@@ -14,6 +14,7 @@ import './Header.css'
 //Class Component way
 class Header extends Component{
     render(){
+        
         return(
             <div className="header">
                 <div className="headerName">
@@ -22,7 +23,7 @@ class Header extends Component{
                 
 
                 <div className="logo">
-                    <image src="./image/upgradlogo.png"></image>
+                    <img src="./image/upgradlogo.png" alt="logoImg"></img>
                 </div>
             </div>
         )
