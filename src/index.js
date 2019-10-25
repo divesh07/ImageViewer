@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Login from './screens/home/Login';
+//import Login from './screens/login';
+import Profile from './Profile.js';
 
-ReactDOM.render(<Login />, document.getElementById('root'));
+ReactDOM.render(<Profile />, document.getElementById('root'));
+
+//serviceWorker.unregister();
