@@ -1,0 +1,27 @@
+.dispNone{
+    display: none;
+}
+
+.dispBlock{
+    display: block;
+}
+
+.login-button{
+    float: right;
+}
+
+.red{
+    color: red;
+}
+
+.cardContainer{    
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 100px;
+    max-width: 250px;    
+}
+
+.title{
+    font-size: 14px;  
+    margin-bottom: 50px;
+}
