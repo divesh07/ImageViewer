@@ -23,7 +23,7 @@ class Header extends Component{
                 
 
                 <div className="logo">
-                    <img src="./image/upgradlogo.png" alt="logoImg"></img>
+                    <img src="./image/upgradlogo" alt="logoImg"></img>
                 </div>
             </div>
         )

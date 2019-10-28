@@ -1,9 +1,9 @@
 class ProfileService {
     constructor() {
       this.profiles = [
-        {id:1, username:"test1", full_name:"Summary Test 1", counts:{media: "3", follows: "32", followed_by: "12"}, profile_picture:"Desc 1"},
-        {id:2, username:"test2", full_name:"Summary Test 2", counts:{media: "3", follows: "32", followed_by: "12"}, profile_picture:"Desc 2"},
-        {id:3, username:"test3", full_name:"Summary Test 3", counts:{media: "3", follows: "32", followed_by: "12"}, profile_picture:"Desc 3"},
+        {"id":1, "username":"test1", "full_name":"Summary Test 1", "counts":{"media": "3", "follows": "32", "followed_by": "12"}, "profile_picture":"./service/upgradlogo.png"},
+        {"id":2, "username":"test2", "full_name":"Summary Test 2", "counts":{"media": "3", "follows": "32", "followed_by": "12"}, "profile_picture":"./service/upgradlogo.png"},
+        {"id":3, "username":"test3", "full_name":"Summary Test 3", "counts":{"media": "3", "follows": "32", "followed_by": "12"}, "profile_picture":"./service/upgradlogo.png"},
       ];
     }
     
