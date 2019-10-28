@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import './Profile.css';
 import Header from '../../common/header/Header';
 import ProfileService from './ProfileService';
-// import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-// import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-// import upgradlogo from './service/upgradlogo.png';
-import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import { FaHeart } from 'react-icons/fa';
 
 class Profile extends Component {
 
@@ -22,10 +21,14 @@ class Profile extends Component {
             selectedProfile: {},
             open: false,
             full_name: '',
-            counts: []
+            counts: [],
+            recentMedia: [],
+            recentDialogueOpen: false,
+            liked: false
         }
 
         this.getProfile();
+        this.getRecentMedia();
     }
 
     componentDidMount() {
@@ -39,34 +42,45 @@ class Profile extends Component {
         this.setState({ open: false });
     };
 
+    openRecentDialog() {
+        this.setState({ recentDialogueOpen: true });
+    }
+
+    closeRecentDialog() {
+        this.setState({ recentDialogueOpen: false });
+    };
+
+
+
     render() {
         const selectedProfile = this.state.selectedProfile;
         const counts = this.state.counts;
+        const recentMedia = this.state.recentMedia;
+        const liked = this.state.liked;
 
         return (
             <div>
                 <Header></Header>
                 <div className="profileDashboard">
                     <div className="profileImage">
-                        <img className='profile-image' alt='icon' src={selectedProfile.profile_picture}/>
+                        <img className='profile-image' alt='icon' src={selectedProfile.profile_picture} />
                     </div>
                     <div className="profileInfo">
                         <div className="profileName">{selectedProfile.username}</div>
                         <div className="profileDetail">
-                            <span className="profileDetailPosts">Posts: </span> {counts.media} 
-                            <span className="profileDetailPosts">Follows: </span>{counts.follows} 
-                            <span className="profileDetailPosts">Followed By: </span>{counts.followed_by} 
+                            <span className="profileDetailPosts">Posts: </span> {counts.media}
+                            <span className="profileDetailPosts">Follows: </span>{counts.follows}
+                            <span className="profileDetailPosts">Followed By: </span>{counts.followed_by}
                         </div>
                         <div className="editProfile">
                             {selectedProfile.full_name}
                             <span>
-                            <Fab color="secondary" aria-label="edit" className="editButton" onClick={() => this.openDialog()}>
-                                <EditIcon />
-                            </Fab>
+                                <Fab color="secondary" aria-label="edit" className="editButton" onClick={() => this.openDialog()}>
+                                    <EditIcon />
+                                </Fab>
                             </span>
                             <Dialog open={this.state.open}>
                                 <DialogTitle>Edit</DialogTitle>
-                                {/* <DialogContent>Start editing to see some magic happen!</DialogContent> */}
                                 <input
                                     autoFocus
                                     id="fullName"
@@ -82,11 +96,58 @@ class Profile extends Component {
 
                 </div>
                 <div className="profileBody">
+                    <GridList cellHeight={160} className="gridList" cols={3}>
+                        {recentMedia.map(recent => (
+                            <GridListTile key={recent.id} cols={recent.cols || 1}>
+                                <img src={recent.link} alt={recent.title} onClick={() => this.openRecentDialog()} />
+                                <Dialog open={this.state.recentDialogueOpen}>
+                                    <div className="recentOpenPictureDiv">
+                                        <div className="recentOpenPicture">
+                                            <img src={recent.images.standard_resolution.url} />
+                                        </div>
+                                        <div className="recentOpenText">
+                                            <div>
+                                                <img src={recent.user.profile_picture} />
+                                                <span>{recent.user.username}</span>
+                                            </div>
+                                            <hr></hr>
+                                            <div>
+                                                <p>{recent.caption.text}</p>
+                                                {recent.tags.map(tag => (
+                                                    <p>{tag}</p>
+                                                ))}
+                                                
+                                            </div>
+                                            <div>
+                                                <Button onClick={() => this.addLikes(liked)}>
+                                                    <FaHeart />
+                                                </Button>
+                                                <span>{recent.likes.count} </span>Likes
+                                            </div>
+                                            <div>
+                                                <input placeholder="Add a Comment"></input>
+                                                <Button type="submit" onClick={() => this.closeRecentDialog()} color="primary">
+                                                    Add
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                </Dialog>
+                            </GridListTile>
+                        ))}
+                    </GridList>
                 </div>
             </div>
 
         )
+    }
+
+    addLikes(liked){
+        if(liked)
+            this.state.liked = false;
+        else
+        this.state.liked = true;
     }
 
     onEditButtonClick() {
@@ -99,6 +160,16 @@ class Profile extends Component {
             this.setState({
                 selectedProfile: profile,
                 counts: profile.counts
+            });
+        }
+        );
+    }
+
+    getRecentMedia() {
+        this.profileService.retrieveRecentMedia().then(recentMedia => {
+            console.log(recentMedia);
+            this.setState({
+                recentMedia: recentMedia
             });
         }
         );

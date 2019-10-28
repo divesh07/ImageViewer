@@ -42,3 +42,25 @@
 .editButton{
     
 }
+
+.gridList{
+    display: 'flex';
+    flex-wrap: 'wrap';
+    justify-content: 'space-around';
+    overflow: 'hidden';
+    width: 500;
+    height: 450;
+}
+
+.recentOpenPicture{
+    width: 50%;
+}
+
+.recentOpenText{
+    width: 50%;
+}
+
+.recentOpenPictureDiv{
+    display: 'flex';
+    padding:10px;
+}

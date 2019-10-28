@@ -32,8 +32,8 @@ class ProfileService {
         return response.json();
       })
       .then(json => {
-        console.log(json);
-        return json;
+        console.log(json.data);
+        return json.data;
       })
       .catch(error => {
         this.handleError(error);
