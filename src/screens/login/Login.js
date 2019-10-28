@@ -47,10 +47,11 @@ class Login extends Component {
         } else {
             console.log("Credentials validated")
             this.setState({ validateCredentials: "dispNone" });
-            sessionStorage.setItem("access-token", this.state.accesstoken)
-            if (this.state.value === 1){
+            sessionStorage.setItem("access-token", this.state.accesstoken);
+
+            //if (this.state.value === 1){
                 ReactDOM.render(<Home />, document.getElementById('root'));
-            }
+            //}
             
         }
     }

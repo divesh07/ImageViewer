@@ -60,9 +60,7 @@ class Profile extends Component {
 
         return (
             <div>
-                <Header>
-                    <div> Icon </div>
-                </Header>
+                <Header></Header>
                 <div className="profileParentBody">
                     <div className="profileDashboard">
                         <div className="profileImage">
