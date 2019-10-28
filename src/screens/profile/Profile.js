@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Profile.css';
 import Header from '../../common/header/Header';
 import ProfileService from './ProfileService';
-import Button from '@material-ui/core/Button';
+import { Button, Input } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
@@ -60,94 +60,100 @@ class Profile extends Component {
 
         return (
             <div>
-                <Header></Header>
-                <div className="profileDashboard">
-                    <div className="profileImage">
-                        <img className='profile-image' alt='icon' src={selectedProfile.profile_picture} />
-                    </div>
-                    <div className="profileInfo">
-                        <div className="profileName">{selectedProfile.username}</div>
-                        <div className="profileDetail">
-                            <span className="profileDetailPosts">Posts: </span> {counts.media}
-                            <span className="profileDetailPosts">Follows: </span>{counts.follows}
-                            <span className="profileDetailPosts">Followed By: </span>{counts.followed_by}
+                <Header>
+                    <div> Icon </div>
+                </Header>
+                <div className="profileParentBody">
+                    <div className="profileDashboard">
+                        <div className="profileImage">
+                            <img className='profile-image-circle' alt='icon' src={selectedProfile.profile_picture} />
                         </div>
-                        <div className="editProfile">
-                            {selectedProfile.full_name}
-                            <span>
-                                <Fab color="secondary" aria-label="edit" className="editButton" onClick={() => this.openDialog()}>
-                                    <EditIcon />
-                                </Fab>
-                            </span>
-                            <Dialog open={this.state.open}>
-                                <DialogTitle>Edit</DialogTitle>
-                                <input
-                                    autoFocus
-                                    id="fullName"
-                                    type="text"
-                                    placeholder="Full Name *" required
-                                />
-                                <Button type="submit" onClick={() => this.closeDialog()} color="primary">
-                                    Update
-                                </Button>
-                            </Dialog>
+                        <div className="profileInfo">
+                            <div className="profileName">{selectedProfile.username}</div>
+                            <div className="profileDetail">
+                                <span className="profileDetailPosts">Posts: </span> {counts.media}  
+                                <span className="profileDetailPosts">Follows: </span> {counts.follows}  
+                                <span className="profileDetailPosts">Followed By: </span> {counts.followed_by}  
+                            </div>
+                            <div className="editProfile">
+                                {selectedProfile.full_name}
+                                <span className="profileEditButton">
+                                    <Fab color="secondary" aria-label="edit" className="editButton" onClick={() => this.openDialog()}>
+                                        <EditIcon />
+                                    </Fab>
+                                </span>
+                                <Dialog open={this.state.open}>
+                                    <DialogTitle>Edit</DialogTitle>
+                                    <div className="editPopup">
+                                        <Input
+                                            autoFocus
+                                            id="fullName"
+                                            type="text"
+                                            placeholder="Full Name *" required
+                                        />
+                                        <p><Button type="submit" onClick={() => this.closeDialog()} variant="contained" color="primary">
+                                            Update
+                                        </Button></p>
+                                    </div>
+                                </Dialog>
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-                <div className="profileBody">
-                    <GridList cellHeight={160} className="gridList" cols={3}>
-                        {recentMedia.map(recent => (
-                            <GridListTile key={recent.id} cols={recent.cols || 1}>
-                                <img src={recent.link} alt={recent.title} onClick={() => this.openRecentDialog()} />
-                                <Dialog open={this.state.recentDialogueOpen}>
-                                    <div className="recentOpenPictureDiv">
-                                        <div className="recentOpenPicture">
-                                            <img src={recent.images.standard_resolution.url} />
-                                        </div>
-                                        <div className="recentOpenText">
-                                            <div>
-                                                <img src={recent.user.profile_picture} />
-                                                <span>{recent.user.username}</span>
+                    </div>
+                    <div className="profileBody">
+                        <GridList cellHeight={160} className="gridList" cols={3}>
+                            {recentMedia.map(recent => (
+                                <GridListTile key={recent.id} cols={recent.cols || 1}>
+                                    <img src={recent.link} alt={recent.title} onClick={() => this.openRecentDialog()} />
+                                    <Dialog open={this.state.recentDialogueOpen}>
+                                        <div className="recentOpenPictureDiv">
+                                            <div className="recentOpenPicture">
+                                                <img src={recent.images.standard_resolution.url} className="selectedRecentPicture"/>
                                             </div>
-                                            <hr></hr>
-                                            <div>
-                                                <p>{recent.caption.text}</p>
-                                                {recent.tags.map(tag => (
-                                                    <p>{tag}</p>
-                                                ))}
-                                                
+                                            <div className="recentOpenText">
+                                                <div>
+                                                    <img src={recent.user.profile_picture} className="selectedRecentProfilePic"/>
+                                                    <span>{recent.user.username}</span>
+                                                </div>
+                                                <hr></hr>
+                                                <div>
+                                                    <p>{recent.caption.text}</p>
+                                                    {recent.tags.map(tag => (
+                                                        <span className="tags">#{tag} </span>
+                                                    ))}
+
+                                                </div>
+                                                <div>
+                                                    <Button className="likeButton" onClick={() => this.addLikes(liked)}>
+                                                        <FaHeart />
+                                                    </Button>
+                                                    <span>{recent.likes.count} </span>Likes
                                             </div>
-                                            <div>
-                                                <Button onClick={() => this.addLikes(liked)}>
-                                                    <FaHeart />
-                                                </Button>
-                                                <span>{recent.likes.count} </span>Likes
-                                            </div>
-                                            <div>
-                                                <input placeholder="Add a Comment"></input>
-                                                <Button type="submit" onClick={() => this.closeRecentDialog()} color="primary">
+                                                <div>
+                                                <Input label="Add a Comment" placeholder="Add a Comment" />
+                                                <Button type="submit" onClick={() => this.closeRecentDialog()} variant="contained" color="primary">
                                                     Add
                                                 </Button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                </Dialog>
-                            </GridListTile>
-                        ))}
-                    </GridList>
+                                    </Dialog>
+                                </GridListTile>
+                            ))}
+                        </GridList>
+                    </div>
                 </div>
             </div>
 
         )
     }
 
-    addLikes(liked){
-        if(liked)
+    addLikes(liked) {
+        if (liked)
             this.state.liked = false;
         else
-        this.state.liked = true;
+            this.state.liked = true;
     }
 
     onEditButtonClick() {

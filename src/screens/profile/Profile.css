@@ -1,9 +1,13 @@
+.profileParentBody{
+    display: grid;
+}
+
 .profileDashboard{
     flex-direction: column;
 }
 .profileImage{
     display: inline-flex;
-    width:20%;
+    width:30%;
 }
 
 .profile-image-circle{
@@ -18,7 +22,7 @@
 }
 
 .profileInfo{
-    width:80%;
+    width:70%;
     float: right;
 }
 
@@ -39,8 +43,8 @@
     width: 20%;
 }
 
-.editButton{
-    
+.editPopup{
+    padding: 10%
 }
 
 .gridList{
@@ -58,9 +62,40 @@
 
 .recentOpenText{
     width: 50%;
+    padding: 5px;
 }
 
 .recentOpenPictureDiv{
-    display: 'flex';
+    display:flex;
     padding:10px;
+}
+
+.profileBody{
+    padding: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.profileEditButton{
+    padding: 10px;
+}
+
+.selectedRecentPicture{
+    width: 100%;
+    height: 90%;
+}
+
+.selectedRecentProfilePic{
+    width: 20%;
+    border-radius: 100%;
+}
+
+.tags{
+    color: #0099cc;
+}
+
+.likeButton{
+    color: indianred !important;
+    margin-left: -8% !important;
+    margin-right: -8% !important;
 }
